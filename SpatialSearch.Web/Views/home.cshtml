@@ -4,6 +4,9 @@
 	Layout = "_layout.cshtml";
 }
 <div class="header">
-	<h1>@Model.Header</h1>
-	<h2>@Model.SubHeader</h2>
+	<img class="header_image" src="@Model.HeaderImage.Url()" />
+	<div class="header_text_container">
+		<h1>@Model.Header</h1>
+		<h2>@Model.SubHeader</h2>
+	</div>
 </div>

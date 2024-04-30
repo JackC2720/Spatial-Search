@@ -58,6 +58,14 @@ namespace SpatialSearch.Core.PublishedModels
 		public virtual string Header => this.Value<string>(_publishedValueFallback, "header");
 
 		///<summary>
+		/// Header Image
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "14.0.0-rc2+4b922c6")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("headerImage")]
+		public virtual global::Umbraco.Cms.Core.Models.MediaWithCrops HeaderImage => this.Value<global::Umbraco.Cms.Core.Models.MediaWithCrops>(_publishedValueFallback, "headerImage");
+
+		///<summary>
 		/// Sub Header
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "14.0.0-rc2+4b922c6")]

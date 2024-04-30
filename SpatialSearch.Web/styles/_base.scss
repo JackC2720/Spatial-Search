@@ -1,3 +1,31 @@
-.header{
-    background-color: red;
+.header {
+    padding: 10px;
+    color: $color-white;
+    position: relative;
+
+    &_image {
+        width: 100%;
+        height: 40vh;
+        margin-left: auto;
+        margin-right: auto;
+        object-fit: cover;
+    }
+
+    &_text_container {
+        position: absolute;
+        top: 40%;
+        width: 100%;
+        text-align: center;
+        font-family: Outfit;
+
+        h1 {
+            font-size: 52px;
+            font-weight: 200;
+        }
+
+        h2 {
+            font-size: 24px;
+            font-weight: 200;
+        }
+    }
 }
