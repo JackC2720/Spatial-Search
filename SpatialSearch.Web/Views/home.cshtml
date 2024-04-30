@@ -1,12 +1,27 @@
-﻿@using SpatialSearch.Core.PublishedModels
+﻿@using SpatialSearch.Core.Controllers.Surface
+@using SpatialSearch.Core.PublishedModels
+@using SpatialSearch.Core.Models
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Home>
 @{
-	Layout = "_layout.cshtml";
+    Layout = "_layout.cshtml";
 }
 <div class="header">
-	<img class="header_image" src="@Model.HeaderImage.Url()" />
-	<div class="header_text_container">
-		<h1>@Model.Header</h1>
-		<h2>@Model.SubHeader</h2>
-	</div>
+    <img class="header_image" src="@Model.HeaderImage.Url()" />
+    <div class="header_text_container">
+        <h1>@Model.Header</h1>
+        <h2>@Model.SubHeader</h2>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Partials/Forms/InvalidForm.cshtml")
+
+<div class="two-column-container">
+    <div class="column">
+        <h3>Enter a postcode and a distance (km)</h3>
+        @Html.Partial("~/Views/Partials/Forms/SearchPostcodeForm.cshtml", new SearchPostcodeModel())
+    </div>
+    <div class="column">
+        <h3>Add postcode to database</h3>
+        @Html.Partial("~/Views/Partials/Forms/AddPostcodeToDatabaseForm.cshtml", new AddPostcodeToDatabaseModel())
+    </div>
 </div>

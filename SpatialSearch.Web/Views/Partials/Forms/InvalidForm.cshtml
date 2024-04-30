@@ -1,0 +1,35 @@
+﻿@using Microsoft.AspNetCore.Mvc.ModelBinding
+
+@if (!ViewData.ModelState.IsValid)
+{
+    var errors = ViewData.ModelState.Values.Select(x => x.Errors);
+    var messages = errors.SelectMany(x => x).Select(x => x.ErrorMessage).Where(x => !string.IsNullOrEmpty(x));
+
+    if (messages.Any())
+    {
+        IList<string> err = new List<string>();
+        foreach (KeyValuePair<string, ModelStateEntry> entry in ViewData.ModelState)
+        {
+            foreach (ModelError error in entry.Value.Errors)
+            {
+                string msg = $"{entry.Key}: {error.ErrorMessage}";
+                if (!err.Contains(msg))
+                {
+                    err.Add(msg);
+                }
+            }
+        }
+
+        <div class="error-message-container">
+            <ul>
+
+                @foreach (string msg in err)
+                {
+                    <li>
+                        <p>@msg</p>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+}

@@ -1,3 +1,7 @@
+body {
+    font-family: Outfit;
+    overflow:hidden;
+}
 .header {
     padding: 10px;
     color: $color-white;
@@ -13,11 +17,9 @@
 
     &_text_container {
         position: absolute;
-        top: 40%;
+        top: 20%;
         width: 100%;
         text-align: center;
-        font-family: Outfit;
-
         h1 {
             font-size: 52px;
             font-weight: 200;
@@ -26,6 +28,53 @@
         h2 {
             font-size: 24px;
             font-weight: 200;
+            margin-left:auto;
+            margin-right:auto;
+            @include mq($from: $breakpoint-md) {
+                max-width: 80%;
+            }
         }
     }
+}
+.error-message-container {
+    padding: 10px 100px;
+
+    ul {
+        padding: 20px 30px;
+        background-color: $error-background;
+        color: $error-text;
+    }
+}
+.two-column-container {
+    margin-left: auto;
+    margin-right: auto;
+    display: grid;
+    grid-template-columns: auto auto;
+    padding: 10px 100px;
+
+    .column {
+        h3 {
+            font-weight: 400;
+        }
+
+        form {
+            .input-group {
+                input {
+                    padding: 10px 15px;
+                    font-size: 16px;
+                }
+            }
+
+            button {
+                padding: 5px 10px;
+                font-size: 16px;
+                margin-top: 15px;
+            }
+        }
+    }
+}
+.success-message {
+    padding: 20px 30px;
+    background-color: $success-background;
+    color: $success-text;
 }

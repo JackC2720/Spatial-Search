@@ -1,0 +1,17 @@
+@mixin mq($from: null, $until: null) {
+  $media-query: null;
+
+  @if $from {
+    $media-query: "(min-width: #{$from})";
+  }
+
+  @if $until {
+    $media-query: if($media-query, $media-query + " and ", "") + "(max-width: #{if($until == null, 9999999, $until - 1)})";
+  }
+
+  @if $media-query {
+    @media #{$media-query} {
+      @content;
+    }
+  }
+}

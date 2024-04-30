@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpatialSearch.Web", "SpatialSearch.Web\SpatialSearch.Web.csproj", "{F6D2499C-8F9B-48C0-BE55-564F4809B112}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpatialSearch.Core", "SpatialSearch.Core\SpatialSearch.Core.csproj", "{21A7775B-E5BE-4F07-8980-F90DE4F129A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpatialSearch.Core", "SpatialSearch.Core\SpatialSearch.Core.csproj", "{21A7775B-E5BE-4F07-8980-F90DE4F129A1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
