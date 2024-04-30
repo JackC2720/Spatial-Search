@@ -1,0 +1,15 @@
+@use 'sass:color';
+/* Sets site-wide variables as SASS variables, then CSS custom properties. */
+
+/* SASS variables */
+$breakpoint-xs: 0;
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+$breakpoint-xxl: 1290px;
+
+// Set colours as SASS variables so we can modify them via SASS functions etc.
+// We'll typically implement colours as CSS custom properties where possible.
+$color-black: #000;
+$color-white: #fff;
