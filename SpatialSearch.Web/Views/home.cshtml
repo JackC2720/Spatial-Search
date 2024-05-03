@@ -1,7 +1,8 @@
 ﻿@using SpatialSearch.Core.Controllers.Surface
+@using SpatialSearch.Core.Models.ViewModels
 @using SpatialSearch.Core.PublishedModels
 @using SpatialSearch.Core.Models
-@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Home>
+@inherits UmbracoViewPage<HomeViewModel>
 @{
     Layout = "_layout.cshtml";
 }
@@ -25,3 +26,7 @@
         @Html.Partial("~/Views/Partials/Forms/AddPostcodeToDatabaseForm.cshtml", new AddPostcodeToDatabaseModel())
     </div>
 </div>
+@if (Model.Results!= null && Model.Results.Any())
+{
+    @Html.Partial("~/Views/Partials/Components/PostcodeResults.cshtml", Model.Results)
+}

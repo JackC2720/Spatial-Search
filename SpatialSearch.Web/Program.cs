@@ -4,9 +4,10 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.CreateUmbracoBuilder()
 .AddBackOffice()
 .AddWebsite()
-    .AddDeliveryApi()
+.AddDeliveryApi()
 .AddComposers()
-    .Build();
+.Build();
+
 builder.Services.AddViteServices();
 
 WebApplication app = builder.Build();

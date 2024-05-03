@@ -78,3 +78,12 @@ body {
     background-color: $success-background;
     color: $success-text;
 }
+.results-container {
+    padding: 10px 100px;
+
+    .results-list {
+        .postcode-results {
+            padding:5px;
+        }
+    }
+}
