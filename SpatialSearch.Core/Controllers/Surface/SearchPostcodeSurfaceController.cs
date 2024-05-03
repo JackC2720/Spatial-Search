@@ -9,21 +9,21 @@ using Umbraco.Cms.Infrastructure.Persistence;
 
 namespace SpatialSearch.Core.Controllers.Surface
 {
-	public class SearchPostcodeSurfaceController : BaseSurfaceController
-	{
-		public SearchPostcodeSurfaceController(IUmbracoContextAccessor umbracoContextAccessor, IUmbracoDatabaseFactory databaseFactory, ServiceContext services, AppCaches appCaches, IProfilingLogger profilingLogger, IPublishedUrlProvider publishedUrlProvider) : base(umbracoContextAccessor, databaseFactory, services, appCaches, profilingLogger, publishedUrlProvider)
-		{
+    public class SearchPostcodeSurfaceController : BaseSurfaceController
+    {
+        public SearchPostcodeSurfaceController(IUmbracoContextAccessor umbracoContextAccessor, IUmbracoDatabaseFactory databaseFactory, ServiceContext services, AppCaches appCaches, IProfilingLogger profilingLogger, IPublishedUrlProvider publishedUrlProvider) : base(umbracoContextAccessor, databaseFactory, services, appCaches, profilingLogger, publishedUrlProvider)
+        {
 
-		}
-		[HttpPost]
-		public async Task<IActionResult> Submit(SearchPostcodeModel form)
-		{
-			if (!ModelState.IsValid)
-			{
-				return CurrentUmbracoPage();
-			}
+        }
+        [HttpPost]
+        public async Task<IActionResult> Submit(SearchPostcodeModel form)
+        {
+            if (!ModelState.IsValid)
+            {
+                return CurrentUmbracoPage();
+            }
 
-			return RedirectToCurrentUmbracoPage();
-		}
-	}
+            return RedirectToCurrentUmbracoPage();
+        }
+    }
 }
