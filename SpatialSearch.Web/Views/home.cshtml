@@ -26,7 +26,8 @@
         @Html.Partial("~/Views/Partials/Forms/AddPostcodeToDatabaseForm.cshtml", new AddPostcodeToDatabaseModel())
     </div>
 </div>
-@if (Model.Results!= null && Model.Results.Any())
+@if (Model.Results != null && Model.Results.Any())
 {
     @Html.Partial("~/Views/Partials/Components/PostcodeResults.cshtml", Model.Results)
 }
+@Html.Partial("~/Views/Partials/Components/PostcodeResultsMap.cshtml")

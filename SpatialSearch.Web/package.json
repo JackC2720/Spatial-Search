@@ -15,5 +15,6 @@
     "vite-plugin-mkcert": "^1.17.3"
   },
   "dependencies": {
+    "leaflet": "^1.9.4"
   }
 }

@@ -1,78 +1,56 @@
-﻿using SpatialSearch.Core.Models;
+﻿using Dapper;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using SpatialSearch.Core.Models;
 using SpatialSearch.Core.Services.Interfaces;
-using IScopeProvider = Umbraco.Cms.Infrastructure.Scoping.IScopeProvider;
 
 namespace SpatialSearch.Core.Services
 {
     public class DataHandlerService : IDataHandlerService
     {
-        private readonly IScopeProvider _scopeProvider;
-        public DataHandlerService(IScopeProvider scopeProvider)
+        private readonly IConfiguration _configuration;
+
+        public DataHandlerService(IConfiguration configuration)
         {
-            _scopeProvider = scopeProvider;
+            _configuration = configuration;
         }
         public string WritePostcodeToDatabase(LocationInformationModel locationInformation)
         {
-            //avoid ambient scope error
-            if (!ExecutionContext.IsFlowSuppressed())
-            {
-                ExecutionContext.SuppressFlow();
-            }
+            string sqlSelect = $@"SELECT COUNT(*) FROM [Postcodes] AS P WHERE P.Postcode = '{locationInformation.Postcode}';";
 
-            using (var scope = _scopeProvider.CreateScope(autoComplete: false))
+            string sqlInsert = @"INSERT INTO Postcodes(Postcode, Location)
+                                  VALUES(@Postcode, geography::Point(@Lat, @Lon, 4326));";
+
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("PostcodesDatabase")))
             {
-                var message = "Postcode already exsists";
-                var existingRecord = scope.Database.Fetch<PostcodesSchemaModel>().FirstOrDefault(r => r.Postcode == locationInformation.Postcode);
-                if (existingRecord == null)
+                connection.Open();
+                var count = connection.ExecuteScalar<int>(sqlSelect);
+                if (count > 0)
                 {
-                    string sql = @"INSERT INTO Postcodes (Postcode, Location)
-                                   VALUES (@postcode, geography::Point(@lat, @lon, 4326))";
-
-                    var parameters = new Dictionary<string, object>()
-                        {
-                            { "postcode", locationInformation.Postcode },
-                            { "lat", locationInformation.Lat },
-                            { "lon", locationInformation.Lon }
-                        };
-                    int rowsAffected = scope.Database.Execute(sql, parameters);
-
-                    if (rowsAffected > 0)
-                    {
-                        message = "Postcode added successfully";
-                    }
-                    else
-                    {
-                        message = "Error writing location data to database";
-                    }
+                    return "Postcode already exsists";
                 }
-                scope.Complete();
-                return message;
+                var rowsAffected = connection.Execute(sqlInsert, locationInformation);
+                if (rowsAffected > 0)
+                {
+                    return "Postcode added successfully";
+                }
+                return "Error adding postcode";
             }
         }
         public List<PostcodeResultsModel> RetrievePostcodes(LocationInformationModel locationInformation, int distance)
         {
-            //avoid ambient scope error
-            if (!ExecutionContext.IsFlowSuppressed())
-            {
-                ExecutionContext.SuppressFlow();
-            }
+            string sql = $@"SELECT P.Postcode, P.Location.Lat AS 'Lat', P.Location.Long AS 'Long', ROUND((P.Location.STDistance(geography::Point({locationInformation.Lat}, {locationInformation.Lon}, 4326)) /1000),1) AS 'Distance' 
+                           FROM [Postcodes] AS P
+                           WHERE P.Location.STDistance(geography::Point({locationInformation.Lat}, {locationInformation.Lon}, 4326)) < {distance * 1000};";
+            var results = new List<PostcodeResultsModel>();
 
-            using (var scope = _scopeProvider.CreateScope(autoComplete: false))
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("PostcodesDatabase")))
             {
-                string sql = @"SELECT P.Postcode , ROUND((P.Location.STDistance(geography::Point(@lat, @lon, 4326)) /1000),1) AS 'Distance' 
-                                FROM [Postcodes] AS P
-                                WHERE P.Location.STDistance(geography::Point(@lat, @lon, 4326)) < @distance;";
-
-                var parameters = new Dictionary<string, object>()
-                        {
-                            { "distance", distance * 1000 },
-                            { "lat", locationInformation.Lat },
-                            { "lon", locationInformation.Lon }
-                        };
-                List<PostcodeResultsModel> results = scope.Database.Fetch<PostcodeResultsModel>(sql, parameters);
-                scope.Complete();
-                return results;
+                connection.Open();
+                results = connection.Query<PostcodeResultsModel>(sql).ToList();
             }
+            return results;
         }
     }
 }
