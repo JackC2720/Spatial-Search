@@ -23,8 +23,9 @@ const initialiseModule = () => {
         const distance = document.getElementById("distanceSearchField").value;
         getLocationData(postcode, distance)
             .then((locationData) => {
+                CreateMap(locationData);
                 CreateList(locationData);
-                CreateMap(locationData, postcode, distance);
+                
             });
     });
 };

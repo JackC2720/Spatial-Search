@@ -40,16 +40,24 @@ namespace SpatialSearch.Core.Services
         }
         public List<PostcodeResultsModel> RetrievePostcodes(LocationInformationModel locationInformation, int distance)
         {
-            string sql = $@"SELECT P.Postcode, P.Location.Lat AS 'Lat', P.Location.Long AS 'Long', ROUND((P.Location.STDistance(geography::Point({locationInformation.Lat}, {locationInformation.Lon}, 4326)) /1000),1) AS 'Distance' 
+            string sql = $@"SELECT P.Postcode, P.Location.Lat AS 'Lat', P.Location.Long AS 'Long', ROUND((P.Location.STDistance(geography::Point({locationInformation.Lat}, {locationInformation.Lon}, 4326)) /1000),1) AS Distance 
                            FROM [Postcodes] AS P
-                           WHERE P.Location.STDistance(geography::Point({locationInformation.Lat}, {locationInformation.Lon}, 4326)) < {distance * 1000};";
+                           WHERE P.Location.STDistance(geography::Point({locationInformation.Lat}, {locationInformation.Lon}, 4326)) < {distance * 1000}
+                           ORDER BY Distance ASC;";
             var results = new List<PostcodeResultsModel>();
-
+            PostcodeResultsModel searchData = new()
+            {
+                Postcode = locationInformation.Postcode,
+                Lat = locationInformation.Lat,
+                Long = locationInformation.Lon,
+                Distance = distance,
+            };
             using (var connection = new SqlConnection(_configuration.GetConnectionString("PostcodesDatabase")))
             {
                 connection.Open();
                 results = connection.Query<PostcodeResultsModel>(sql).ToList();
             }
+            results.Add(searchData);
             return results;
         }
     }

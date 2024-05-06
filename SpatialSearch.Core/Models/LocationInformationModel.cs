@@ -2,7 +2,7 @@
 {
     public class LocationInformationModel
     {
-        public LocationInformationModel(string postcode, double lat, double lon)
+        public LocationInformationModel(string postcode, float lat, float lon)
         {
             Postcode = postcode;
             Lat = lat;
@@ -10,8 +10,8 @@
         }
         public string Postcode { get; set; }
 
-        public double Lat { get; set; }
-        public double Lon { get; set; }
+        public float Lat { get; set; }
+        public float Lon { get; set; }
 
     }
 }
