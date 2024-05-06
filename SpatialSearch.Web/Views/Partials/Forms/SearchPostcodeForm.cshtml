@@ -1,12 +1,7 @@
-﻿@using SpatialSearch.Core.Controllers.Surface
-@using Microsoft.AspNetCore.Mvc.ModelBinding
-@model SpatialSearch.Core.Models.SearchPostcodeModel
-
-@using (Html.BeginUmbracoForm<SearchPostcodeSurfaceController>(nameof(SearchPostcodeSurfaceController.Submit)))
-{
+﻿<form>
 	<div class="input-group">
-		<input class="input-field" placeholder="Postcode" asp-for="SearchPostcode" />
-		<input class="input-field" placeholder="Distance (km)" asp-for="Distance" value=""/>
+		<input id="postcodeSearchField" class="input-field" placeholder="Postcode"/>
+		<input id="distanceSearchField" class="input-field" placeholder="Distance (km)" value=""/>
 	</div>
-	<button class="btn" type="submit" name="Submit" value="Submit">Submit</button>
-}
+	<button id="searchSubmit" class="btn" type="submit" name="Submit" value="Submit">Submit</button>
+</form>

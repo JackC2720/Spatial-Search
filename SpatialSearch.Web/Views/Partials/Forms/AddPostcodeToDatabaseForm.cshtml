@@ -1,16 +1,8 @@
-﻿@using SpatialSearch.Core.Controllers.Surface
-@using Microsoft.AspNetCore.Mvc.ModelBinding
-@model SpatialSearch.Core.Models.AddPostcodeToDatabaseModel
-
-@using (Html.BeginUmbracoForm<AddPostcodeToDatabaseSurfaceController>(nameof(AddPostcodeToDatabaseSurfaceController.Submit)))
-{
+﻿<form>
 	<div class="input-group">
-		<input class="input-field" placeholder="Postcode" asp-for="Postcode" />
+		<input id="postcodeField" class="input-field" placeholder="Postcode"/>
 	</div>
-	<button class="btn" type="submit" name="Submit" value="Submit">Submit</button>
-}
-@if (TempData.ContainsKey("postcodeSuccess"))
-{
-	<p class="success-message">@TempData["postcodeSuccess"]</p>
-	TempData.Clear();
-}
+	<button id="AddPostcodeSubmit" class="btn" type="submit" name="Submit" value="Submit">Submit</button>
+</form>
+
+<p id="addPostcodeMessage" class="add-postcode-success-message"></p>

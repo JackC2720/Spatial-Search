@@ -1,5 +1,4 @@
-﻿@using SpatialSearch.Core.Controllers.Surface
-@using SpatialSearch.Core.Models.ViewModels
+﻿@using SpatialSearch.Core.Models.ViewModels
 @using SpatialSearch.Core.PublishedModels
 @using SpatialSearch.Core.Models
 @inherits UmbracoViewPage<HomeViewModel>
@@ -19,15 +18,14 @@
 <div class="two-column-container">
     <div class="column">
         <h3>Enter a postcode and a distance (km)</h3>
-        @Html.Partial("~/Views/Partials/Forms/SearchPostcodeForm.cshtml", new SearchPostcodeModel())
+        @Html.Partial("~/Views/Partials/Forms/SearchPostcodeForm.cshtml")
     </div>
     <div class="column">
         <h3>Add postcode to database</h3>
-        @Html.Partial("~/Views/Partials/Forms/AddPostcodeToDatabaseForm.cshtml", new AddPostcodeToDatabaseModel())
+        @Html.Partial("~/Views/Partials/Forms/AddPostcodeToDatabaseForm.cshtml")
     </div>
 </div>
-@if (Model.Results != null && Model.Results.Any())
-{
-    @Html.Partial("~/Views/Partials/Components/PostcodeResults.cshtml", Model.Results)
-}
+
+
+@Html.Partial("~/Views/Partials/Components/PostcodeResultsList.cshtml")
 @Html.Partial("~/Views/Partials/Components/PostcodeResultsMap.cshtml")
