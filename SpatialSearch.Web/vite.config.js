@@ -21,7 +21,7 @@ export default defineConfig({
   },
   plugins: [
     liveReload([
-      resolve(__dirname, '*.html')
+        resolve(__dirname, 'Views/**/*.cshtml')
     ]),
     mkcert(),
   ],

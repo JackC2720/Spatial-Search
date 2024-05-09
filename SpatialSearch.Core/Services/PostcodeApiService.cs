@@ -27,5 +27,25 @@ namespace SpatialSearch.Core.Services
                 return null;
             }
         }
+        public async Task<LocationInformationModel?> GetRandomPostcodeData()
+        {
+            var url = "https://api.postcodes.io/random/postcodes";
+
+            using var client = new HttpClient();
+            HttpResponseMessage response = await client.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var contentString = await response.Content.ReadAsStringAsync();
+                var responseModel = JsonSerializer.Deserialize<PostcodeApiResponseModel>(contentString);
+
+                LocationInformationModel postcodeSchemaModel = new LocationInformationModel(responseModel.result.postcode, responseModel.result.latitude, responseModel.result.longitude);
+                return postcodeSchemaModel;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }

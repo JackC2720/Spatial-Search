@@ -1,4 +1,4 @@
-import { addLocationToDatabase, getLocationData } from './postcodeApi';
+import { addLocationToDatabase, addRandomLocationsToDatabase, getLocationData } from './postcodeApi';
 import { CreateMap } from './locationMap';
 import { CreateList } from './locationList';
 
@@ -26,6 +26,17 @@ const initialiseModule = () => {
                 CreateMap(locationData);
                 CreateList(locationData);
                 
+            });
+    });
+    //Add random postcodes to DB form
+    const AddRandomPostcodesFormSubmit = document.getElementById("AddRandomPostcodeSubmit");
+    AddRandomPostcodesFormSubmit.addEventListener("click", (b) => {
+        b.preventDefault();
+        const postcode = document.getElementById("numberOfPostcodes").value;
+        addRandomLocationsToDatabase(postcode)
+            .then((responseString) => {
+                const messageContainer = document.getElementById("addRandomPostcodeMessage");
+                messageContainer.innerHTML = responseString.substring(1, responseString.length - 1);
             });
     });
 };
