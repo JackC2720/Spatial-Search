@@ -13,7 +13,7 @@
     {
         public void Compose(IUmbracoBuilder builder)
         {
-            builder.Services.AddSingleton<IDataHandlerService, DataHandlerService>();
+            builder.Services.AddSingleton<IDataHandlerService, DataHandler>();
             builder.Services.AddSingleton<IPostcodeApiService, PostcodeApiService>();
         }
     }

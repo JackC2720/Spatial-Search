@@ -7,11 +7,11 @@ using SpatialSearch.Core.Services.Interfaces;
 
 namespace SpatialSearch.Core.Services
 {
-    public class DataHandlerService : IDataHandlerService
+    public class DataHandler : IDataHandlerService
     {
         private readonly IConfiguration _configuration;
 
-        public DataHandlerService(IConfiguration configuration)
+        public DataHandler(IConfiguration configuration)
         {
             _configuration = configuration;
         }
